@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from '../Home';
+import Room from '../Room';
 
 export default function BasicRouter() {
   return (
@@ -9,6 +10,9 @@ export default function BasicRouter() {
         <Switch>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route exact path="/:roomId">
+            <Room />
           </Route>
         </Switch>
       </div>

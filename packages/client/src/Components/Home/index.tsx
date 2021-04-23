@@ -1,21 +1,63 @@
 import React from 'react';
+import { v4 as uuid } from 'uuid';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Alert from '@material-ui/lab/Alert';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  withStyles,
-} from '@material-ui/core/styles';
+import { createStyles, Theme, withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { Footer } from '../Footer';
+
+type State = { loader: boolean };
+type Props = RouteComponentProps<any> & {
+  classes: any;
+};
+
+class Home extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      loader: false,
+    };
+  }
+
+  render() {
+    const { classes, history } = this.props;
+    return (
+      <div>
+        <div className={classes.header}>
+          <AppBar position="static">
+            <Typography variant="h3" className={classes.title}>
+              waitroom
+            </Typography>
+          </AppBar>
+        </div>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Backdrop className={classes.backdrop} open={this.state.loader}>
+            <CircularProgress color="inherit" />
+          </Backdrop>
+          <div className={classes.buttonGroup}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                history.push(`/${uuid()}?usertype=host`);
+              }}
+              color="primary"
+              disableElevation
+            >
+              Create new Room
+            </Button>
+          </div>
+          <Footer />
+        </Container>
+      </div>
+    );
+  }
+}
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -41,56 +83,14 @@ const styles = (theme: Theme) =>
       margin: theme.spacing(1),
       backgroundColor: theme.palette.secondary.main,
     },
-    form: {
+    buttonGroup: {
       width: '100%', // Fix IE 11 issue.
-      marginTop: theme.spacing(1),
+      textAlign: 'center',
+      marginTop: theme.spacing(10),
     },
     submit: {
       margin: theme.spacing(1, 0, 2),
     },
   });
 
-type State = { loader: boolean };
-type Props = {
-  classes: any;
-};
-
-class Home extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      loader: false,
-    };
-  }
-
-  render() {
-    const { classes } = this.props;
-    return (
-      <div>
-        <div className={classes.header}>
-          <AppBar position="static">
-            <Typography variant="h3" className={classes.title}>
-              waitroom
-            </Typography>
-          </AppBar>
-        </div>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Backdrop className={classes.backdrop} open={this.state.loader}>
-            <CircularProgress color="inherit" />
-          </Backdrop>
-          <Box mt={8}>
-            <Typography variant="body2" color="textSecondary" align="center">
-              {'Copyright © '}
-              <Link color="inherit" href="https://material-ui.com/">
-                waitroom
-              </Link>{' '}
-              {new Date().getFullYear()}.
-            </Typography>
-          </Box>
-        </Container>
-      </div>
-    );
-  }
-}
-export default withStyles(styles)(Home);
+export default withRouter(withStyles(styles)(Home));
