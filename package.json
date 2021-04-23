@@ -1,0 +1,12 @@
+{
+  "name": "waitroom",
+  "version": "1.0.0",
+  "description": "waitroom demo project",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "repository": "git@github.com:amsubhash/waitroom.git",
+  "author": "Subhash Halder <halder.subhash@gmail.com>",
+  "license": "MIT"
+}
