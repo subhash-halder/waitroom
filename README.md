@@ -1,7 +1,7 @@
 # WaitRoom Demo project
 
 The project is yarn workspace consist of two packages client and server,
-the client consist of React app and the server is a node server with MongoDB as database.
+the client consist of React app and the server is a node server
 
 to run the project first we need to install all the packages by running `yarn` from the root folder.
 
